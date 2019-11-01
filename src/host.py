@@ -91,15 +91,17 @@ class Host:
                 self.user_db.add_user_to_db(self.user_db.connection, username)
 
     # say things back to channel
-    def say(self, channel, message):
+    def say(self, channel: str, message: str, attachments=None) -> None:
         """
         :param: channel: channel to which we are posting message
         :param: message: message to post or 'say'
+        :param: attachments: extra attachments e.g. interactive buttons in json form
         """
         self.slack_client.api_call(
             'chat.postMessage',
             channel=channel,
             text=message,
+            attachments=attachments,
             as_user=True
         )
 

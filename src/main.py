@@ -99,7 +99,10 @@ def answer_check_worker(answer, user_name, user_id):
             categorized_questions = Question.get_questions_by_category(
                 live_question.category, Timer(time_limit, reset_timer)
             )
-            host.say(channel, answer_check)
+            next_category_json = SlackFormatter.add_next_category_button(answer_check)
+            text = next_category_json['text']
+            attachments = next_category_json['attachments']
+            host.say(channel, text, attachments)
             os.remove('answer_lock')
 
 
@@ -215,7 +218,7 @@ def ask():
 def next():
     global live_question
     global categorized_questions
-    if request.form['channel_name'] == channel:
+    if request.form['channel_name'] == channel and request.form['actions']['value'] == "continue_category":
         if categorized_questions:
             live_question = categorized_questions.pop()
             return ask()
