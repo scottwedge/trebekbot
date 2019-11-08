@@ -220,6 +220,7 @@ def ask():
 # get a new question from the last question's category
 @app.route('/buttons', methods=['POST'])
 def next_question():
+    print(request.form)
     global live_question
     global categorized_questions
     if request.form['channel_name'] == channel and request.form["actions"][0]["selected_options"][0]["value"] == "continue_category":
