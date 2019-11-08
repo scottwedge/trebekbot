@@ -115,7 +115,7 @@ def reset_timer():
     host.say(
         channel,
         "Sorry, we're out of time. The correct answer is: " + live_question.answer,
-        SlackFormatter.add_next_category_button(answer_check)['attachments']
+        SlackFormatter.add_next_category_button(live_question.answer)['attachments']
     )
     question_is_live = False
     current_wager = 0
