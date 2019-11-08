@@ -222,7 +222,7 @@ def ask():
 def next_question():
     global live_question
     global categorized_questions
-    if request.form['channel_name'] == channel and request.form['actions']['value'] == "continue_category":
+    if request.form['channel_name'] == channel and request.form["actions"][0]["selected_options"][0]["value"] == "continue_category":
         if categorized_questions:
             live_question = categorized_questions.pop()
             return ask()
