@@ -93,6 +93,7 @@ def answer_check_worker(answer, user_name, user_id):
             categorized_questions = Question.get_questions_by_category(
                 live_question.category, Timer(time_limit, reset_timer)
             )
+            attachments = None
             # answer is correct: reset timer/wager and wipe out live question
             if ':white_check_mark:' in answer_check:
                 live_question.timer.cancel()
@@ -100,12 +101,8 @@ def answer_check_worker(answer, user_name, user_id):
                 live_question = Question(Question.get_random_question(), Timer(time_limit, reset_timer))
                 question_is_live = False
                 next_category_json = SlackFormatter.add_next_category_button(answer_check)
-                text = next_category_json['text']
                 attachments = next_category_json['attachments']
-                host.say(channel, text, attachments)
-            # if they got the answer wrong
-            else:
-                host.say(channel, answer_check)
+            host.say(channel, answer_check, attachments)
             os.remove('answer_lock')
 
 
@@ -115,7 +112,11 @@ def reset_timer():
     global question_is_live
     global categorized_questions
     global current_wager
-    host.say(channel, "Sorry, we're out of time. The correct answer is: " + live_question.answer)
+    host.say(
+        channel,
+        "Sorry, we're out of time. The correct answer is: " + live_question.answer,
+        SlackFormatter.add_next_category_button(answer_check)['attachments']
+    )
     question_is_live = False
     current_wager = 0
     # prep for /next route if someone wants the same category for next question
