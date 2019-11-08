@@ -24,6 +24,7 @@ class SlackFormatter:
                                 "text": "Continue Category",
                                 "type": "button",
                                 "url": "https://trebekbot-py.herokuapp.com/next"
+                                "value": "continue_category"
                             }
                         ]
                     }

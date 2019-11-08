@@ -19,7 +19,6 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 # setup database (or connect to existing one)
-# thanks to joamag on stackoverflow
 result = urlparse.urlparse(os.environ['DATABASE_URL'])
 dbuser = result.username
 password = result.password
@@ -57,6 +56,7 @@ categorized_questions = []
 
 
 # TODO: add 500 error handler
+# TODO: turn channel check into decorator
 
 # Utility Functions
 
@@ -89,6 +89,10 @@ def answer_check_worker(answer, user_name, user_id):
             with open('answer_lock', 'w') as lock:
                 lock.write('locked')
             answer_check = host.check_answer(live_question, answer, user_name, user_id, wager=current_wager)
+            # prep for /next route if someone wants the same category for next question
+            categorized_questions = Question.get_questions_by_category(
+                live_question.category, Timer(time_limit, reset_timer)
+            )
             # answer is correct: reset timer/wager and wipe out live question
             if ':white_check_mark:' in answer_check:
                 live_question.timer.cancel()
@@ -215,11 +219,17 @@ def ask():
 
 # get a new question from the last question's category
 @app.route('/next', methods=['POST'])
-def next():
+def next_question():
     global live_question
     global categorized_questions
+<<<<<<< HEAD
     if request.form['channel_name'] == channel and request.form['actions']['value'] == "continue_category":
         if categorized_questions:
+=======
+    if request.form['channel_name'] == channel:
+        # make sure that the next question isn't the same as the one we just asked
+        if categorized_questions and live_question.slack_text != categorized_questions[0].slack_text:
+>>>>>>> dev
             live_question = categorized_questions.pop()
             return ask()
         else:
