@@ -23,7 +23,8 @@ class SlackFormatter:
                                 "name": "continue_category",
                                 "text": "Continue Category",
                                 "type": "button",
-                                "value": "continue_category"
+                                "value": "continue_category",
+                                "data_source": "external"
                             }
                     ]
                 }
