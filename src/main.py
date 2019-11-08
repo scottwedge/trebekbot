@@ -99,14 +99,13 @@ def answer_check_worker(answer, user_name, user_id):
                 current_wager = 0
                 live_question = Question(Question.get_random_question(), Timer(time_limit, reset_timer))
                 question_is_live = False
-            # prep for /next route if someone wants the same category for next question
-            categorized_questions = Question.get_questions_by_category(
-                live_question.category, Timer(time_limit, reset_timer)
-            )
-            next_category_json = SlackFormatter.add_next_category_button(answer_check)
-            text = next_category_json['text']
-            attachments = next_category_json['attachments']
-            host.say(channel, text, attachments)
+                next_category_json = SlackFormatter.add_next_category_button(answer_check)
+                text = next_category_json['text']
+                attachments = next_category_json['attachments']
+                host.say(channel, text, attachments)
+            # if they got the answer wrong
+            else:
+                host.say(channel, answer_check)
             os.remove('answer_lock')
 
 
