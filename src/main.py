@@ -218,7 +218,7 @@ def ask():
         return handle_payload(wrong_channel_payload)
 
 # get a new question from the last question's category
-@app.route('/buttons', methods=['POST'])
+@app.route('/slack/buttons', methods=['POST'])
 def next_question():
     print(request.form)
     global live_question
