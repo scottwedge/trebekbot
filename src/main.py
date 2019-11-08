@@ -222,14 +222,8 @@ def ask():
 def next_question():
     global live_question
     global categorized_questions
-<<<<<<< HEAD
     if request.form['channel_name'] == channel and request.form['actions']['value'] == "continue_category":
         if categorized_questions:
-=======
-    if request.form['channel_name'] == channel:
-        # make sure that the next question isn't the same as the one we just asked
-        if categorized_questions and live_question.slack_text != categorized_questions[0].slack_text:
->>>>>>> dev
             live_question = categorized_questions.pop()
             return ask()
         else:
