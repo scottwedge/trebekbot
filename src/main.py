@@ -25,13 +25,14 @@ dbuser = result.username
 password = result.password
 dbname = result.path[1:]
 dbhost = result.hostname
-user_db = db(
-    'dbname=' + dbname + ' ' +
-    'user=' + dbuser + ' ' +
-    'password=' + password + ' ' +
-    'host=' + dbhost + ' ' +
-    'sslmode=require'
-)
+# user_db = db(
+#     'dbname=' + dbname + ' ' +
+#     'user=' + dbuser + ' ' +
+#     'password=' + password + ' ' +
+#     'host=' + dbhost + ' ' +
+#     'sslmode=require'
+# )
+user_db = db()
 # retrieve id/token/etc. from env variables
 slack_token = os.environ['TREBEKBOT_API_TOKEN']
 slack_client = WebClient(token=slack_token)
