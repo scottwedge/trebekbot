@@ -1,5 +1,6 @@
 import psycopg2
 from contextlib import suppress
+from trebekbot_project.trebekbot_project.settings import DATABASES
 
 '''
 Class for database setup/functions
@@ -16,6 +17,16 @@ class db:
     :param conn_string: psql connection string of comma-separated options
     """
     def __init__(self, conn_string):
+        # setup database (or connect to existing one)
+        result = urlparse.urlparse(os.environ['DATABASE_URL'])
+        # set up django conf
+        db_default = {
+            'NAME': result.path[1:],
+            'USER': result.username,
+            'PASSWORD': result.password,
+            'HOST': result.hostname
+        }
+        DATABASES['default'] = db_default
         self.conn_string = conn_string
         self.connection = psycopg2.connect(self.conn_string)
         self.create_table_users(self.connection)
