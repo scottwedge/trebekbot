@@ -1,1 +1,1 @@
-web gunicorn trebekbot_project.wsgi:app
+web gunicorn trebekbot_project.trebekbot_project.wsgi:app
