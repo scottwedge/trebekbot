@@ -1,2 +1,1 @@
-web gunicorn src.main:app
-# worker: python src/app.py
+web gunicorn trebekbot_project.wsgi:app
