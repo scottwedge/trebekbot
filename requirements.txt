@@ -11,3 +11,6 @@ slackclient
 sqlalchemy
 testing.postgresql
 Unidecode==0.4.20
+
+# django
+dj_database_url
