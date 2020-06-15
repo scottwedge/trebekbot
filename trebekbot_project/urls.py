@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('home/', include('trebekbot_app.urls'), name='homepage'),
+    path('test/', include('trebekbot_app.urls'), name='testpage'),
     path('admin/', admin.site.urls),
 ]
