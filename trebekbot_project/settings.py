@@ -26,7 +26,7 @@ SECRET_KEY = 'oqs0h*o5j_p6fryr9f+=dia%kfujm8kl)k_re9it=yiej#3093'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['trebekbot-django.herokuapp.com']
 
 
 # Application definition
