@@ -1,6 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import
+from src.question import Question
+
 
 def test(request):
     return HttpResponse("Welcome to Trebekbot!")
 
+
+def question(request):
+    return Question().format_slack_text()

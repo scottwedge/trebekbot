@@ -73,6 +73,7 @@ class Question:
         question = question_list[randint(0, len(question_list))]
         return question
 
+    # TODO: turn this into a __str__ method
     # formats text to be pretty for slack
     @staticmethod
     def format_slack_text(question):
