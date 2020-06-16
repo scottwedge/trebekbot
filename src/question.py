@@ -40,7 +40,7 @@ class Question:
     banned_phrases = ['seen here', 'heard here', 'audio clue']
 
     # TODO: refactor this to be a true constructor (e.g. not always a random question)
-    def __init__(self, question_json, timer):
+    def __init__(self, question_json):
         # text with html links separated out
         scrubbed_text = Question.separate_html(question_json['question'])
         self.text = ''
@@ -57,7 +57,7 @@ class Question:
         self.answer = question_json['answer']
         self.date = question_json['air_date']
         self.slack_text = Question.format_slack_text(self)
-        self.timer = timer
+        # self.timer = timer
 
     # gets random question from given json file
     @staticmethod

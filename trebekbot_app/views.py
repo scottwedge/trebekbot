@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from src.question import Question
 
 
+def question(request):
+    return HttpResponse(Question(Question.get_random_question()))
+
+
 def test(request):
     return HttpResponse("Welcome to Trebekbot!")
-
-
-def question(request):
-    return HttpResponse(Question().format_slack_text())
