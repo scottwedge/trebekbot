@@ -3,7 +3,8 @@ from src.question import Question
 
 
 def question(request):
-    return HttpResponse(Question(Question.get_random_question()))
+    return HttpResponse("No question found!")
+    #return HttpResponse(Question(Question.get_random_question()))
 
 
 def test(request):
