@@ -7,4 +7,4 @@ def test(request):
 
 
 def question(request):
-    return Question().format_slack_text()
+    return HttpResponse(Question().format_slack_text())
