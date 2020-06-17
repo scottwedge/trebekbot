@@ -9,6 +9,16 @@ class User(models.Model):
     wins = models.IntegerField(default=0)
 
     def __str__(self):
-        return 'Username: ' + self.name + '\n', \
-               'Score: ' + self.score + '\n', \
-               'Wins: ' + self.wins + '\n'
+        return self.name
+
+
+class Question(models.Model):
+    text = models.CharField(max_length=500)
+    value = models.IntegerField()
+    category = models.CharField(max_length=100)
+    daily_double = models.BooleanField(default=False)
+    answer = models.CharField(max_length=250)
+    date = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.text

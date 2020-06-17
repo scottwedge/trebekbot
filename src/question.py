@@ -34,7 +34,6 @@ Holds details about questions and questions themselves
 
 
 class Question:
-
     # init
     banned_categories = 'missing this category',
     banned_phrases = ['seen here', 'heard here', 'audio clue']
@@ -78,17 +77,17 @@ class Question:
     @staticmethod
     def format_slack_text(question):
         if question.daily_double:
-            question_text = '[*'+question.category+'*] ' + \
-            '['+question.date+'] ' + \
-            '_'+question.text+'_'
+            question_text = '[*' + question.category + '*] ' + \
+                            '[' + question.date + '] ' + \
+                            '_' + question.text + '_'
         else:
-            question_text = '[*'+question.category+'*] ' + \
-            '['+question.get_value()+'] ' + \
-            '['+question.date+'] ' + \
-            '_'+question.text+'_'
+            question_text = '[*' + question.category + '*] ' + \
+                            '[' + question.get_value() + '] ' + \
+                            '[' + question.date + '] ' + \
+                            '_' + question.text + '_'
         if question.valid_links:
             for link in question.valid_links:
-                question_text += '\n'+link
+                question_text += '\n' + link
         return question_text
 
     def get_value(self):
@@ -112,24 +111,24 @@ class Question:
         if banned_phrases and type(banned_phrases) is list:
             for phrase in banned_phrases:
                 question_list = list(filter(lambda x: phrase.lower() not in \
-                x['question'].lower(), question_list))
+                                                      x['question'].lower(), question_list))
         # if single phrase is passed in as a string
         elif banned_phrases and type(banned_phrases) is str:
             question_list = list(filter(lambda x: phrase.lower() not in \
-            x['question'].lower(), question_list))
+                                                  x['question'].lower(), question_list))
         # if list of categories is passed in, these are in upper case in json
         if banned_categories and type(banned_categories) is list:
             # 'missing this category' is the only non-capitalized category
             banned_categories = [c.upper() for c in banned_categories \
-            if c != 'missing this category']
-            question_list = list(filter(lambda x: x['category'] not in\
-            banned_categories, question_list))
+                                 if c != 'missing this category']
+            question_list = list(filter(lambda x: x['category'] not in \
+                                                  banned_categories, question_list))
         # if single category is passed in as a string
         elif banned_categories and type(banned_categories) is str:
             if banned_categories != 'missing this category':
                 banned_categories = banned_categories.upper()
-            question_list = list(filter(lambda x: x['category'] !=\
-            banned_categories, question_list))
+            question_list = list(filter(lambda x: x['category'] != \
+                                                  banned_categories, question_list))
         return question_list
 
     # to remove $ and commas from question values, e.g. '$2,500'
@@ -158,6 +157,7 @@ class Question:
     returns a tuple of the question text and link if link is valid,
     otherwise just returns the text
     '''
+
     @staticmethod
     def separate_html(question_text):
         with suppress(RequestException):
@@ -216,4 +216,3 @@ class Question:
         question_list = json.loads(jeopardy_json_file)
         categorized_question_jsons = list(filter(lambda x: search_category == x['category'], question_list))
         return [Question(q, timer) for q in categorized_question_jsons]
-
