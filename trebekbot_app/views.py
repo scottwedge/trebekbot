@@ -1,8 +1,10 @@
 # django
 from django.http import HttpResponse
-from ..models import Question
+from .models import Question
 
 # native
+import json
+from random import randint
 from os import path, pardir
 project_root = path.join(path.dirname(path.abspath(__file__)), pardir)
 
